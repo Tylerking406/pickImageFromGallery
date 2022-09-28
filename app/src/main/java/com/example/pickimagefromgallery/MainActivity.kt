@@ -90,27 +90,19 @@ class MainActivity : AppCompatActivity() {
         try {
             if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){
                 val resolver = contentResolver
-                val contentValues = ContentValues()
-                var  dir: String? = Environment.DIRECTORY_PICTURES+"./ABC"
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME,"tester"+".jpg")
+                val contentValues =ContentValues()
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME,"Image_"+".jpg")
                 contentValues.put(MediaStore.MediaColumns.MIME_TYPE,"Image/jpg")
-               contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH,
-                    dir)
-
-
-               /* contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH,
-                    "/myFolder" + Environment.getDataDirectory())
-                */
-
+                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_PICTURES+ File.separator+"TestFolder")
                 val imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues)
                 outputStream = resolver.openOutputStream(Objects.requireNonNull(imageUri)!!)!!
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream)
                 Objects.requireNonNull<OutputStream>(outputStream)
-                Toast.makeText(this,"Image Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Image Saved",Toast.LENGTH_SHORT).show()
 
             }
         }catch (e : Exception){
-            Toast.makeText(this,"Image not Saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Image not Saved",Toast.LENGTH_SHORT).show()
 
         }
     }
